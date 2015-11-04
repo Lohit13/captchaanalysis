@@ -1,0 +1,96 @@
+{% load staticfiles %}
+{% load bootstrap %}
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	<title>CAT | IAB</title>
+	
+	<link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
+	<link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="assets/js/html5shiv.js"></script>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body style="background-color:#F1F1F1;">
+
+	<!-- NAVBAR START -->
+    <nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">CAT</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	<!-- NAVBAR END -->
+
+
+	<div>
+		<center>
+<!-- 			<div>
+				<br><h2>question</h2><br>
+			</div>
+ -->			<div>
+					<img id = "captcha" src="{% static "images/cap.jpg" %}" >
+			</div>
+			<br><br>
+		</center>
+	</div>
+
+
+<footer>
+	<div style="text-align:center;">
+		<hr style="color:#D0D0D0; background-color:#D0D0D0; height:1px; width:80%;">
+		Developed by Lohit and Weed
+	</div>
+</footer>
+
+
+<script>
+	
+	var clicks_allowed = 3;
+	var clicks_done = 0;
+
+	var image_left = $('#captcha').position()["left"];
+	var image_top = $('#captcha').position()["top"];
+
+	var response = [];
+
+	jQuery("#captcha").click(function(e){
+		var click_left = e.pageX - image_left;
+		var click_top = e.pageY - image_top;
+
+		response.push({"left" : click_left, "top" : click_top});
+
+		clicks_done += 1;
+		console.log(response)
+		if (clicks_done > clicks_allowed)
+		{
+			console.log(response);
+			alert("Clicks over");
+			// request next image
+		}
+	});
+	
+</script>
+
+</body>
+</html>
