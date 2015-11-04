@@ -50,7 +50,10 @@
 				<form method="post" action="/">
 					{% csrf_token %}
 					<input name="name" id="name" class="form-control input-hg" placeholder="Name"><br>
-					<input class="btn btn-success" type="submit" id="submit" value="Start">
+					<input class="btn btn-success" type="submit" id="submit" value="Start"><br><br>
+					{% if nameError %}
+						Come on, gimme a name <strong>bruh</strong>
+					{% endif %}
 				</form>
 			</div>
 			<br><br>
