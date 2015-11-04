@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'cat.views.index', name='home'),
     url(r'^captcha/', 'captcha.views.image', name='image'),
+    # url(r'^populate/', 'captcha.views.populate', name='populate'),
 
 
    	
