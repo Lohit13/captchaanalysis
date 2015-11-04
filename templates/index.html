@@ -34,9 +34,6 @@
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="#">Home</a></li>
-	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>
@@ -50,7 +47,8 @@
 			</div>
 			<br><br>
 			<div style="width:15%">
-				<form method="post" action="#">
+				<form method="post" action="/">
+					{% csrf_token %}
 					<input name="name" id="name" class="form-control input-hg" placeholder="Name"><br>
 					<input class="btn btn-success" type="submit" id="submit" value="Start">
 				</form>

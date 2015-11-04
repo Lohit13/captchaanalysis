@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'bootstrapform',
     'bootstrap3',
+    'captcha',
 )
 
 MIDDLEWARE_CLASSES = (
