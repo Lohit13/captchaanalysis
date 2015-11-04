@@ -48,8 +48,18 @@
 <!-- 			<div>
 				<br><h2>question</h2><br>
 			</div>
- -->			<div>
-					<img id = "captcha" src="{% static "images/cap.jpg" %}" >
+ -->		
+ 			<div>
+				
+				<img id = "captcha" src="{% static "images/cap.jpg" %}" >
+
+				<br><br>
+
+ 				<form id = 'captchForm' method = "POST" action = "/captcha/">
+ 					{% csrf_token %}
+ 					<input type = "hidden" name = "answerGiven" id = "answerGiven" />
+					<button type = "submit" class = "btn btn-lg btn-success" >Submit</button>
+				</form>
 			</div>
 			<br><br>
 		</center>
@@ -72,14 +82,15 @@
 	var image_left = $('#captcha').position()["left"];
 	var image_top = $('#captcha').position()["top"];
 
-	var response = [];
+	var response = "";
 
 	jQuery("#captcha").click(function(e){
 		var click_left = e.pageX - image_left;
 		var click_top = e.pageY - image_top;
 
-		response.push({"left" : click_left, "top" : click_top});
+		response += parseInt(click_left) + "||" + parseInt(click_top) + "||||";
 
+		$('#answerGiven').val(response.toString());
 		clicks_done += 1;
 		console.log(response)
 		if (clicks_done > clicks_allowed)
@@ -89,7 +100,7 @@
 			// request next image
 		}
 	});
-	
+
 </script>
 
 </body>

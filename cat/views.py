@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import render_to_response
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.context_processors import csrf
 
 
@@ -11,6 +11,11 @@ import datetime
 
 def index(request):
 	args = {}
+
+	try:
+		done = request.session["done"]
+	except:
+		done = False
 
 	try:
 		hashCode = request.session["userHash"]
@@ -31,6 +36,17 @@ def index(request):
 		
 		else:
 			request.session["name"] = request.POST['name']
+			request.session["captchasDone"] = 0
+			done = True
+			request.session["done"] = True
+			return HttpResponseRedirect("/captcha")
+
+	if done:
+		args["name"] = request.session["name"]
+		args["imagesSolved"] = request.session["captchasDone"]
+		args["done"] = True
+	else:
+		args["done"] = False
 
 	args.update(csrf(request))
 	return render_to_response('index.html',args)

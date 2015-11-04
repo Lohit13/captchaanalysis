@@ -10,4 +10,10 @@ import datetime
 # Create your views here.
 
 def image(request):
-	return render_to_response("captcha.html")
+	args = {}
+
+	if request.method == "POST":
+		print request.POST["answerGiven"]
+
+	args.update(csrf(request))
+	return render_to_response("captcha.html", args)
