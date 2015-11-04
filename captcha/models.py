@@ -4,7 +4,7 @@ from django.db import models
 
 class Case(models.Model):
 	allowed = models.IntegerField(default=0)
-	mininum = models.IntegerField(default=0)
+	minimum = models.IntegerField(default=0)
 
 class Captcha(models.Model):
 	image = models.CharField(max_length=10)
