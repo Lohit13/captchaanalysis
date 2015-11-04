@@ -12,14 +12,8 @@ class Captcha(models.Model):
 	solution = models.TextField()
 	question = models.TextField()
 
-	def __unicode__(self):
-		return str(image+case)
-
 class Run(models.Model):
 	uid = models.TextField()
 	image = models.ForeignKey(Captcha)
 	response = models.TextField()
 	verdict = models.BooleanField(default=False)
-
-	def __unicode__(self):
-		return str(uid+image.image)
