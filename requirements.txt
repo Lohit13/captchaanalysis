@@ -3,3 +3,4 @@ django-bootstrap-form==3.2
 django-bootstrap3==6.2.2
 hashlib==20081119
 wheel==0.24.0
+xlwt

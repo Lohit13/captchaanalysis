@@ -51,14 +51,17 @@
  -->		
  			<div>
 				
-				<img id = "captcha" src="{% static "images/cap.jpg" %}" >
+				<h3>{{ captchasDone }} {{ captcha.question }}</h3>
+				<!-- <div id = 'clickleft'> Clicks left : {{ maxclicks }}</div>  -->
+
+				<img id = "captcha" src="{{ path }}">
 
 				<br><br>
-
  				<form id = 'captchForm' method = "POST" action = "/captcha/">
  					{% csrf_token %}
  					<input type = "hidden" name = "answerGiven" id = "answerGiven" />
-					<button type = "submit" class = "btn btn-lg btn-success" >Submit</button>
+ 					<input type = "hidden" name = "time" id = "time" />
+					<button id = "submitbutton" type = "submit" class = "btn btn-lg btn-success" >Submit</button>
 				</form>
 			</div>
 			<br><br>
@@ -76,28 +79,41 @@
 
 <script>
 	
-	var clicks_allowed = 3;
+	var start = new Date();
+
+	var clicks_allowed = {{ maxclicks }};
 	var clicks_done = 0;
 
 	var image_left = $('#captcha').position()["left"];
 	var image_top = $('#captcha').position()["top"];
 
 	var response = "";
+	$('#answerGiven').val(response.toString());
+	var elapsed = new Date() - start;
+	$("#time").val(elapsed);
 
 	jQuery("#captcha").click(function(e){
+		console.log(e.pageX);
+		console.log(image_left);
 		var click_left = e.pageX - image_left;
 		var click_top = e.pageY - image_top;
 
-		response += parseInt(click_left) + "||" + parseInt(click_top) + "||||";
+		response += parseInt(click_left) + "||" + parseInt(click_top) + ",";
 
 		$('#answerGiven').val(response.toString());
+		elapsed = new Date() - start;
+		$("#time").val(elapsed);
+
+
 		clicks_done += 1;
 		console.log(response)
-		if (clicks_done > clicks_allowed)
+		// $('#clickleft').html("Clicks left : " + (clicks_allowed - clicks_done).toString())
+
+		if (clicks_done == clicks_allowed)
 		{
 			console.log(response);
-			alert("Clicks over");
-			// request next image
+			alert("Clicks over, submitting");
+			$("#submitbutton").click();
 		}
 	});
 
